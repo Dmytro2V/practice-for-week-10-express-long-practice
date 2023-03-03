@@ -85,3 +85,4 @@ const deleteDog = (req, res) => {
 // ------------------------------  ROUTER ------------------------------  
 
 // Your code here
+//router.get('/static' , express.static('assets'))
