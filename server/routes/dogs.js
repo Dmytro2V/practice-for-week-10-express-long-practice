@@ -89,13 +89,12 @@ const deleteDog = (req, res) => {
 const express = require('express');
 const router = express.Router();
 // creating routers for 5 cases
-router.get('/dogs', getAllDogs);
-router.get('/dogs/:dogId', validateDogId, getDogById);
-router.post('/dogs', validateDogInfo, createDog)
-router.put('/dogs/:dogId', validateDogId, validateDogInfo, updateDog);
-router.delete('/dogs/:dogId', validateDogId, deleteDog);
-
-
+router.get('/', getAllDogs);
+router.get('/:dogId', validateDogId, getDogById);
+router.post('/', validateDogInfo, createDog)
+router.put('/:dogId', validateDogId, validateDogInfo, updateDog);
+router.delete('/:dogId', validateDogId, deleteDog);
+router.use('/:dogId', validateDogId) // phase 5
 // Phase 3 task 2:
 // Connect Middleware to Routes
 //Connect the validateDogId and validateDogInfo middleware functions in the routes/dogs.js file

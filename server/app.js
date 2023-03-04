@@ -5,8 +5,10 @@ const dogFoodsRouter = require('./routes/dog-foods.js')
 
 
 app.use(express.json()) // Phase 1 task 2 - need to parse body from request
-app.use(dogsRouter);
-app.use(dogFoodsRouter);
+
+app.use('/dogs', dogsRouter);
+app.use('/dogs/:dogId/foods', dogFoodsRouter); // Phase 5
+                                               // validateDogId can be here or directly in dogs // phase 5
 
 // Phase 2 task 1Logger Middleware
 // Create a middleware function that will log the method and URL path of the request to the terminal 
@@ -16,7 +18,7 @@ app.use((req, res, next) => {
   console.log('request URL: ', req.url);
   res.on('finish', () => { // Phase 2 task2 - responce code on event listener (when ready)
     // read and log the status code of the response
-    console.log(res.statusCode);
+    console.log('from finish: ', res.statusCode);
   });
   next();
 })
@@ -55,8 +57,8 @@ app.use( (req, res) => {
 // Phase 4-1 Error Handling Middleware
 // Phase 4-2 Production vs. Development Error Handling
 app.use((err, req, res, next) => { 
-  console.log(err);
-  res.statusCode = res.statusCode||500;
+  console.log('err,', err, 'end of err');
+  res.statusCode = err.statusCode||500;
   let errRes = {
     message: err.message||"Something went wrong",
     statusCode: res.statusCode||500      
