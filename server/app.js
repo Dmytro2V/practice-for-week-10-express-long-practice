@@ -48,9 +48,29 @@ app.use( (req, res) => {
   res.statusCode = 404;
   throw new Error("The requested resource couldn't be found.")
 });
-app.use((err, req, res, next) => { // Phase 1 task 3 error listener
-  res.json("Error: " + err.message);
+//app.use((err, req, res, next) => { // Phase 1 task 3 error listener
+//  res.json("Error: " + err.message);
+//});
+
+// Phase 4-1 Error Handling Middleware
+// Phase 4-2 Production vs. Development Error Handling
+app.use((err, req, res, next) => { 
+  console.log(err);
+  res.statusCode = res.statusCode||500;
+  let errRes = {
+    message: err.message||"Something went wrong",
+    statusCode: res.statusCode||500      
+  }
+  
+  if (process.env.NODE_ENV !== 'production') errRes.stack = err.stack;
+
+  res.json(errRes);
 });
+
+
+
+
+
 
 const port = 5000;
 app.listen(port, () => console.log('Server is listening on port', port));
