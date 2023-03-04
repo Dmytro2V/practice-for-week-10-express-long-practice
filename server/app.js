@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
+const dogsRouter = require('./routes/dogs.js')
+const dogFoodsRouter = require('./routes/dog-foods.js')
 
-app.use('/test-json', express.json()) // Phase 1 task 2 - need to parse body from request
 
+app.use(express.json()) // Phase 1 task 2 - need to parse body from request
+app.use(dogsRouter);
+app.use(dogFoodsRouter);
 
 // Phase 2 task 1Logger Middleware
 // Create a middleware function that will log the method and URL path of the request to the terminal 

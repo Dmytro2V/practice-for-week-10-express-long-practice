@@ -85,4 +85,20 @@ const deleteDog = (req, res) => {
 // ------------------------------  ROUTER ------------------------------  
 
 // Your code here
-//router.get('/static' , express.static('assets'))
+//Phase 3 - task 1
+const express = require('express');
+const router = express.Router();
+// creating routers for 5 cases
+router.get('/dogs', getAllDogs);
+router.get('/dogs/:dogId', validateDogId, getDogById);
+router.post('/dogs', validateDogInfo, createDog)
+router.put('/dogs/:dogId', validateDogId, validateDogInfo, updateDog);
+router.delete('/dogs/:dogId', validateDogId, deleteDog);
+
+
+// Phase 3 task 2:
+// Connect Middleware to Routes
+//Connect the validateDogId and validateDogInfo middleware functions in the routes/dogs.js file
+// to the appropriate endpoints in the dogs router.
+
+module.exports = router;
